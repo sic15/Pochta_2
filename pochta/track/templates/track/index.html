@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Отправления</title>
+
+    <style type="text/css">    
+        #left{width:60%;height:800px;overflow:auto;float:left;}
+        #right{width:40%;height:800px;overflow:auto;} 
+     </style>
+      
+    
+  </head>
+  <body>
+    
+      <header></header>  
+
+      <main>
+        <div id="left">
+            <h1>Отслеживание почтовых отправлений</h1>
+        {% for item in page_obj %}
+        <h3>Отправление {{ item.0 }}:</h3>
+        <ul>
+            <li> Трек: {{ item.1 }}</li> 
+            
+            <li> Является конечной операцией:
+                {% if item.delivery_send.final_operation %} Да
+                {% else %} Нет
+                {% endif %}  </li>
+
+        <details>
+            <summary>Показать подробную информацию</summary>
+            <li> Отправитель: {{ item.2 }}</li>
+            <li> Получатель: {{ item.3 }}</li>
+            <li> Время отправления: {{ item.4 }}</li>
+            <li> Адрес отправления: {{ item.5 }}</li>
+            <li> Адрес прибытия: {{ item.6 }}</li>
+            <li> Название операции: {{ item.delivery_send.operation_name }}</li> 
+            <li> Название атрибута: {{ item.delivery_send.attribute_name }} </li> 
+            <li> Категория отправления: {{ item.delivery_postage_category.departure_category }} </li> 
+            <li> Разряд почтового отправления: {{ item.delivery_discharge_depart.departure_discharge }} </li> 
+            <li> Вид отправления: {{ item.delivery_type_depart.departure_type }} </li> 
+            <li> Отметка почтового отправления: {{ item.delivery_mark_depart.departure_stamp }} </li> 
+            <li> Наименование страны пересылки: {{ item.delivery_country_codes.country_shipment }} </li> 
+            <li> Наименование категории отправителя: {{ item.delivery_senders.category_name }}</li> 
+        </details>
+        </ul>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
+        
+
+        <div id="right">
+            <h1>Добавить почтовое отправление для отслеживания</h1>
+            <form action="{% url 'track:index'%}" method="post">  
+                {% csrf_token %}
+                <label>Введите трек: </label>
+                <input type="text" name="track" id = 'track' required>
+                <input type="submit" value="Добавить">
+              </form>
+        </div>
+       </main>
+      
+      <footer>
+        <hr style="border-width: 5px; border-color: green;">
+       {% include 'track/paginator.html' %}</footer>
+  </body>
+</html>

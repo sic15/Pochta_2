@@ -1,0 +1,33 @@
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation" class="my-5">
+
+    {% if page_obj.has_previous %}
+
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+          Предыдущая
+        </a>
+        &nbsp; 
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+
+        <b> <span class="page-link">  {{ i }}  </span></b>
+
+        {% else %}
+         
+            <a class="page-link" href="?page={{ i }}">  {{ i }}  </a>
+      
+        {% endif %}
+        &nbsp; 
+    {% endfor %}
+    {% if page_obj.has_next %}
+    &nbsp; 
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+            Следующая
+        </a>
+
+    {% endif %}    
+
+</nav>
+{% endif %}
