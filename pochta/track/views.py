@@ -7,6 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
+
+	
+
 mydb = mysql.connector.connect(
     host=os.getenv('HOST', default='localhost'),
     user=os.getenv('USER'),
@@ -37,3 +41,4 @@ def index(request):
             'track/index.html',
             context={
                 'page_obj': page_obj})
+
