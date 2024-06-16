@@ -16,3 +16,4 @@ typing_extensions==4.12.1
 tzdata==2024.1
 uWSGI==2.0.26
 virtualenv==20.26.2
+
